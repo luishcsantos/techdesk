@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS techdesk
-CHARACTER SET utf8mb4; -- permite caracteres especiais (emoji, acentos, etc)
+CHARACTER SET utf8mb4
 USE techdesk;
 
 -- criação tabela chamados
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS chamados (
     solicitante VARCHAR(100) NOT NULL,
     setor VARCHAR(100) NOT NULL,
     prioridade ENUM('Baixa', 'Média', 'Alta') NOT NULL DEFAULT 'Média',
-    estado ENUM('Aberto', 'Em andamento', 'Concluído') NOT NULL DEFAULT 'Aberto',
+    estado ENUM('Aberto', "Em andamento", 'Concluído') NOT NULL DEFAULT 'Aberto',
     descricao TEXT NOT NULL,
     criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

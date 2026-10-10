@@ -1,59 +1,84 @@
 <?php
 require "config.php";
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $titulo = $_POST['titulo'];
-    $solicitante = $_POST['solicitante'];
-    $setor = $_POST['setor'];
-    $prioridade = $_POST['prioridade'];
-    $estado = $_POST['estado'];
 
-    // Inserir o novo chamado no banco de dados
-    $sql = "INSERT INTO chamados (titulo, solicitante, setor, prioridade, estado) VALUES (:titulo, :solicitante, :setor, :prioridade, :estado)";
+//só executa o cadastro se o formulário tiver sido enviado
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    //pegar tudo o que o usuário preencheu no formulário
+    $titulo = $_POST["titulo"];
+    $solicitante = $_POST["solicitante"];
+    $setor = $_POST["setor"];
+    $prioridade = $_POST["prioridade"];
+    $estado = $_POST["status"];
+    $descricao = $_POST["descricao"];
+
+    //comando pra cadastrar o chamado no banco
+    $sql = "INSERT INTO chamados
+    (titulo, solicitante, setor, prioridade, estado, descricao)
+    VALUES (?, ?, ?, ?, ?, ?)";
+    //Os ? são espaços reservados
+    //eles ainda não possuem os valores reais
+
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':titulo', $titulo);
-    $stmt->bindParam(':solicitante', $solicitante);
-    $stmt->bindParam(':setor', $setor);
-    $stmt->bindParam(':prioridade', $prioridade);
-    $stmt->bindParam(':estado', $estado);
-    $stmt->execute();
+    $stmt->execute([
+        $titulo,
+        $solicitante,
+        $setor,
+        $prioridade,
+        $estado,
+        $descricao
+    ]);
 
-    // Redirecionar para a página principal após o cadastro
     header("Location: index.php");
-    exit();
+    exit; //encerra a execução do php
 }
+
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
+<!DOCTYPE html> 
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
-    <title>TechDesk</title>
+    <!-- permite exibir corretamente símbolos e caracteres especiais -->
+    <title>Novo chamado</title>
 </head>
+
 <body>
-    <h1>Cadastrar Novo Chamado</h1>
-    <form action="salvar.php" method="POST">
-        <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo" required>
-        <br><br>
-        <label for ="setor">Setor:</label>
-        <textarea id="setor" name="setor" required></textarea>
-        <br><br>
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" required></textarea>
-        <br><br>
-        <select id="status" name="status">
-            <option value="baixa">Baixa</option>
-            <option value="media">Média</option>
-            <option value="alta">Alta</option>
-        </select>
-        <br><br>
-        <select id="estado" name="estado">
-            <option value="aberto">Aberto</option>
-            <option value="em_andamento">Em Andamento</option>
-            <option value="fechado">Fechado</option>
-        </select>
-        <br><br>
-        <input type="submit" value="Cadastrar" href="index.php">
+    <h1>Novo chamado</h1>
+    <form method="post"> 
+    <!-- define que os dados serão enviados usando o método post-->
+     <label>Título: </label>
+     <input type="text" name="titulo" require><br><br>
+
+     <label>Solicitante: </label>
+     <input type="text" name="solicitante" require><br><br>
+
+     <label>Setor: </label>
+     <input type="text" name="setor" require><br><br>
+
+     <label>Prioridade: </label>
+     <select name="prioridade">
+        <option>Baixa</option>
+        <option selected>Média</option>
+        <option>Alta</option>
+     </select><br><br>
+
+     <label>Status: </label>
+     <select name="status">
+        <option selected>Aberto</option>
+        <option>Em andamento</option>
+        <option>Concluído</option>
+     </select><br><br>
+
+     <label>Descrição: </label>
+     <textarea name="descricao" rows="6" require></textarea><br>
+        <br>
+        <button type="submit">Cadastrar</button><br><br>
     </form>
+
+    <a href="index.php">
+        <button>Voltar</button>
+    </a>
+
 </body>
+</html>
