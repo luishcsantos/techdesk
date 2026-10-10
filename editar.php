@@ -100,13 +100,21 @@ function e($valor)
 
         <label>
             Prioridade:
-            <input type="text" name="prioridade" value="<?= e($chamado["prioridade"]) ?>">
+            <select name="prioridade">
+                <option value="Baixa" <?= $chamado["prioridade"] === "Baixa" ? "selected" : "" ?>>Baixa</option>
+                <option value="Média" <?= $chamado["prioridade"] === "Média" ? "selected" : "" ?>>Média</option>
+                <option value="Alta" <?= $chamado["prioridade"] === "Alta" ? "selected" : "" ?>>Alta</option>
+            </select>
         </label>
         <br><br>
 
         <label>
             Status:
-            <input type="text" name="estado" value="<?= e($chamado["estado"]) ?>">
+            <select name="estado">
+                <option value="Aberto" <?= $chamado["estado"] === "Aberto" ? "selected" : "" ?>>Aberto</option>
+                <option value="Em andamento" <?= $chamado["estado"] === "Em andamento" ? "selected" : "" ?>>Em andamento</option>
+                <option value="Concluído" <?= $chamado["estado"] === "Concluído" ? "selected" : "" ?>>Concluído</option>
+            </select>
         </label>
         <br><br>
 

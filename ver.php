@@ -28,11 +28,11 @@ if (!$chamado) {
 
 <body>
     <h1><?= $chamado["titulo"] ?></h1>
-    <p><strong>Solicitante:</strong><?= $chamado["solicitante"] ?></p>
-    <p><strong>Setor:</strong><?= $chamado["setor"] ?></p>
-    <p><strong>Prioridade:</strong><?= $chamado["prioridade"] ?></p>
-    <p><strong>Status:</strong><?= $chamado["estado"] ?></p>
-    <p><strong>Descrição:</strong><?= $chamado["descricao"] ?></p>
+    <p><strong>Solicitante: </strong><?= $chamado["solicitante"] ?></p>
+    <p><strong>Setor: </strong><?= $chamado["setor"] ?></p>
+    <p><strong>Prioridade: </strong><?= $chamado["prioridade"] ?></p>
+    <p><strong>Status: </strong><?= $chamado["estado"] ?></p>
+    <p><strong>Descrição: </strong><?= $chamado["descricao"] ?></p>
 
     <a href="editar.php?id=<?= $chamado["id"]?>"><button>Editar</button></a><br><br>
     <a href="index.php">
